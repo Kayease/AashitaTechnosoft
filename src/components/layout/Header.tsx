@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { href: '#overview', label: 'Overview' },
-  { href: '#about', label: 'About' },
-  { href: '#team', label: 'Team' },
-  { href: '#services', label: 'Services' },
-  { href: '#process', label: 'Process' },
-  { href: '#enterprises', label: 'Enterprises' },
-  { href: '#contact', label: 'Contact' },
+  { href: "#overview", label: "Overview" },
+  { href: "#about", label: "About" },
+  { href: "#team", label: "Team" },
+  { href: "#services", label: "Services" },
+  { href: "#process", label: "Process" },
+  { href: "#enterprises", label: "Enterprises" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export default function Header() {
@@ -20,15 +20,18 @@ export default function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
 
-    const targetId = href.replace('#', '');
+    const targetId = href.replace("#", "");
     const element = document.getElementById(targetId);
 
     if (element) {
@@ -36,11 +39,12 @@ export default function Header() {
       setTimeout(() => {
         const headerOffset = 100;
         const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        const offsetPosition =
+          elementPosition + window.pageYOffset - headerOffset;
 
         window.scrollTo({
           top: offsetPosition,
-          behavior: 'smooth'
+          behavior: "smooth",
         });
       }, 100);
     }
@@ -51,10 +55,11 @@ export default function Header() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 md:top-4 left-0 right-0 z-50 mx-auto w-full md:w-[99%] max-w-full transition-all duration-500 ${isScrolled || isMobileMenuOpen
-        ? 'bg-card/90 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border-b md:border border-white/20 rounded-none md:rounded-2xl'
-        : 'bg-card/50 backdrop-blur-md border-b md:border border-white/10 rounded-none md:rounded-2xl shadow-lg'
-        }`}
+      className={`fixed top-0 md:top-4 left-0 right-0 z-50 mx-auto w-full md:w-[99%] max-w-full transition-all duration-500 ${
+        isScrolled || isMobileMenuOpen
+          ? "bg-card/90 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border-b md:border border-white/20 rounded-none md:rounded-2xl"
+          : "bg-card/50 backdrop-blur-md border-b md:border border-white/10 rounded-none md:rounded-2xl shadow-lg"
+      }`}
     >
       <div className="px-1 md:px-2">
         <nav className="flex items-center justify-between h-20">
@@ -63,11 +68,15 @@ export default function Header() {
             className="flex items-center gap-3"
             onClick={(e) => {
               e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
             <div className="h-12 flex items-center">
-              <img src="/logo.png" alt="Aashita Technosoft Logo" className="h-full w-auto object-contain" />
+              <img
+                src="/logo.png"
+                alt="Aashita Technosoft Logo"
+                className="h-full w-auto object-contain"
+              />
             </div>
           </motion.a>
 
@@ -88,7 +97,7 @@ export default function Header() {
           <div className="hidden xl:flex items-center gap-4">
             <motion.a
               href="#contact"
-              onClick={(e) => handleNavClick(e, '#contact')}
+              onClick={(e) => handleNavClick(e, "#contact")}
               className="px-4 xl:px-6 py-2.5 bg-gradient-to-r from-primary to-blue-600 text-primary-foreground rounded-full font-medium text-sm shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300 whitespace-nowrap"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
@@ -113,7 +122,7 @@ export default function Header() {
         {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0, margin: 0 }}
-            animate={{ opacity: 1, height: 'auto', marginTop: 16 }}
+            animate={{ opacity: 1, height: "auto", marginTop: 16 }}
             exit={{ opacity: 0, height: 0, margin: 0 }}
             className="xl:hidden overflow-hidden rounded-b-2xl border-t border-white/10"
           >
@@ -132,7 +141,7 @@ export default function Header() {
                 <a
                   href="#contact"
                   className="block w-full text-center px-6 py-3 bg-gradient-to-r from-primary to-blue-600 text-primary-foreground rounded-xl font-medium shadow-lg shadow-primary/20"
-                  onClick={(e) => handleNavClick(e, '#contact')}
+                  onClick={(e) => handleNavClick(e, "#contact")}
                 >
                   Get Started
                 </a>

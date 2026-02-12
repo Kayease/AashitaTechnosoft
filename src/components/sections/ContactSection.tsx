@@ -1,58 +1,59 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
-import { toast } from '@/hooks/use-toast';
+import React, { useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { FormEvent } from "react";
+import { toast } from "@/hooks/use-toast";
 
 const contactInfo = [
   {
     icon: Mail,
-    label: 'Email Us',
-    value: 'info@aashitatechnosoft.com',
-    href: 'mailto:info@aashitatechnosoft.com',
+    label: "Email Us",
+    value: "hr@aashita.ai",
+    href: "mailto:hr@aashita.ai",
   },
   {
     icon: Phone,
-    label: 'Call Us',
-    value: '+91 141 123 4567',
-    href: 'tel:+911411234567',
+    label: "Call Us",
+    value: "+91 9216063146",
+    href: "tel:+919216063146",
   },
   {
     icon: MapPin,
-    label: 'Visit Us',
-    value: 'Jaipur, Rajasthan, India',
-    href: '#',
+    label: "Visit Us",
+    value: "Jaipur, Rajasthan, India",
+    href: "#",
   },
 ];
 
 const offices = [
-  { city: 'Jaipur, India', address: 'Corporate Headquarters' },
-  { city: 'Shenzhen, China', address: 'Asia Pacific Operations' },
-  { city: 'Ho Chi Minh, Vietnam', address: 'Southeast Asia Office' },
-  { city: 'Jakarta, Indonesia', address: 'Indonesia Office' },
+  { city: "Jaipur, India", address: "Corporate Headquarters" },
+  { city: "Shenzhen, China", address: "Asia Pacific Operations" },
+  { city: "Ho Chi Minh, Vietnam", address: "Southeast Asia Office" },
+  { city: "Jakarta, Indonesia", address: "Indonesia Office" },
 ];
 
 export default function ContactSection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
     setIsSubmitting(false);
     setIsSubmitted(true);
-    
+
     toast({
       title: "Message Sent!",
       description: "We'll get back to you within 24 hours.",
     });
-    
+
     setTimeout(() => setIsSubmitted(false), 3000);
   };
 
@@ -73,8 +74,8 @@ export default function ContactSection() {
             <span className="text-gradient"> Something Great</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Ready to transform your business with cutting-edge technology? 
-            Get in touch with our team today.
+            Ready to transform your business with cutting-edge technology? Get
+            in touch with our team today.
           </p>
         </motion.div>
 
@@ -89,7 +90,7 @@ export default function ContactSection() {
               <h3 className="font-display text-2xl font-bold text-foreground mb-6">
                 Send us a Message
               </h3>
-              
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
@@ -115,7 +116,7 @@ export default function ContactSection() {
                     />
                   </div>
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
                     Email
@@ -127,7 +128,7 @@ export default function ContactSection() {
                     placeholder="john@company.com"
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
                     Company
@@ -138,7 +139,7 @@ export default function ContactSection() {
                     placeholder="Your Company"
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
                     Message
@@ -150,7 +151,7 @@ export default function ContactSection() {
                     placeholder="Tell us about your project..."
                   />
                 </div>
-                
+
                 <motion.button
                   type="submit"
                   disabled={isSubmitting || isSubmitted}
@@ -200,8 +201,12 @@ export default function ContactSection() {
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
                     <item.icon className="w-5 h-5 text-primary" />
                   </div>
-                  <div className="text-xs text-muted-foreground mb-1">{item.label}</div>
-                  <div className="text-sm font-medium text-foreground">{item.value}</div>
+                  <div className="text-xs text-muted-foreground mb-1">
+                    {item.label}
+                  </div>
+                  <div className="text-sm font-medium text-foreground">
+                    {item.value}
+                  </div>
                 </motion.a>
               ))}
             </div>
@@ -213,9 +218,16 @@ export default function ContactSection() {
               </h4>
               <div className="grid grid-cols-2 gap-4">
                 {offices.map((office, index) => (
-                  <div key={office.city} className="p-3 rounded-xl bg-secondary">
-                    <div className="font-medium text-foreground text-sm">{office.city}</div>
-                    <div className="text-xs text-muted-foreground">{office.address}</div>
+                  <div
+                    key={office.city}
+                    className="p-3 rounded-xl bg-secondary"
+                  >
+                    <div className="font-medium text-foreground text-sm">
+                      {office.city}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {office.address}
+                    </div>
                   </div>
                 ))}
               </div>
