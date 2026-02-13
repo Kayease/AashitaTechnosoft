@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const navLinks = [
   { href: "#overview", label: "Overview" },
@@ -15,6 +16,8 @@ const navLinks = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +33,11 @@ export default function Header() {
   ) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
+
+    if (location.pathname !== "/") {
+      navigate("/" + href);
+      return;
+    }
 
     const targetId = href.replace("#", "");
     const element = document.getElementById(targetId);
@@ -63,12 +71,14 @@ export default function Header() {
     >
       <div className="px-1 md:px-2">
         <nav className="flex items-center justify-between h-20">
-          <motion.a
-            href="#"
-            className="flex items-center gap-3"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
+          <motion.div
+            className="flex items-center gap-3 cursor-pointer"
+            onClick={() => {
+              if (location.pathname !== "/") {
+                navigate("/");
+              } else {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
             }}
           >
             <div className="h-12 flex items-center">
@@ -78,7 +88,7 @@ export default function Header() {
                 className="h-full w-auto object-contain"
               />
             </div>
-          </motion.a>
+          </motion.div>
 
           {/* Desktop Navigation */}
           <div className="hidden xl:flex items-center gap-1 bg-background/50 backdrop-blur-sm px-2 py-1.5 rounded-full border border-white/10 shadow-inner">
